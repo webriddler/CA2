@@ -1,0 +1,86 @@
+<form class="needs-validation" #frm="ngForm" (ngSubmit)="submit(frm)">
+    <div class="form-group mb-3">
+        <label class="form-label">Full Name</label>
+        <input required ngModel type="text" minlength="5" 
+            name="Name" #name="ngModel" (change)="display(name);" 
+            [class]="{'is-invalid':name.touched && !name.valid, 'form-control': true}"
+            pattern="^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,1}$">
+        <div *ngIf="name.touched && name.errors">
+            <small class="text-danger" *ngIf="name.errors['required']">Name is Required.</small>
+            <small class="text-danger" *ngIf="name.errors['minlength']">Required length is {{name.errors['minlength']['requiredLength']}}, you provided {{name.errors['minlength']['actualLength']}}.</small>
+            <small class="text-danger" *ngIf="!name.errors['minlength'] && name.errors['pattern']">Please provide Valid name only.</small>
+        </div>
+    </div>
+    <div class="form-group mb-3">
+      <label>Description</label>
+      <textarea class="form-control" rows="3" name="description" ngModel #description="ngModel"  minlength="20"></textarea>
+      <div *ngIf="description.touched && description.errors">
+        <small class="text-danger" *ngIf="description.errors['minlength']">Required length is {{description.errors['minlength']['requiredLength']}} but you provided {{description.errors['minlength']['actualLength']}}.</small>
+        </div>
+    </div>  
+    <button [disabled]="frm.invalid" type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="h2 my-4">FormGroup</div>
+
+<form class="needs-validation" #frm2="ngForm" (ngSubmit)="submit(frm2)">
+    <div ngModelGroup="Addrs" #addr="ngModelGroup">
+        <div class="form-group mb-3">
+            <label class="form-label">City Name</label>
+            <input required [ngModel]="Addrs.City" type="text" minlength="2" 
+                name="address"
+                [class]="{'is-invalid':addr.touched && !addr.valid, 'form-control': true}">
+        </div>
+        
+        <div class="form-group mb-3">
+            <label class="form-label">State Name</label>
+            <input required [ngModel]="Addrs.State" type="text" minlength="2" 
+                name="state"
+                [class]="{'is-invalid':addr.touched && !addr.valid, 'form-control': true}">
+        </div>
+    </div>
+    <div class="form-group mb-3">
+        <label class="form-label">Pincode</label>
+        <input ngModel required #pincode="ngModel" type="number"
+            name="pincode"
+            [class]="{'is-invalid':pincode.touched && !pincode.valid, 'form-control': true}">
+    </div>
+    <div class="form-group mb-3">
+        <div class="form-check form-check-inline">
+        <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" ngModel name="pg" value="checkedValue" [checked]="true">
+            Post-graduated
+            </label>
+        </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" ngModel name="ug" value="checkedValue">
+                Undergraduated
+            </label>
+        </div>
+    </div>
+    <div class="form-group mb-3">
+        <div class="form-check form-check-inline">
+            <label class="form-check-label">
+            <input type="radio" class="form-check-input" ngModel name="emp_status" value="employed" checked>
+            Employed
+          </label>
+        </div>
+    
+       <div class="form-check  form-check-inline">
+            <label class="form-check-label">
+            <input type="radio" class="form-check-input" ngModel name="emp_status" value="un_employed">
+            Unemployed
+          </label>
+        </div>
+    </div>
+    <div class="form-group mb-2">
+      <label class="form-label">Prefer Location</label>
+      <select class="form-control" ngModel name="jobLocation" required>
+        <option *ngFor="let l of job_location" value="{{l.City}}">
+            {{l.City}}: {{l.Location}}
+        </option>
+      </select>
+    </div>
+    <button [disabled]="frm2.invalid" type="submit" class="btn btn-primary">Submit</button>
+</form>

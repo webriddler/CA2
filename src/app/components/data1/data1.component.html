@@ -1,0 +1,17 @@
+<table class="table w-75 m-4">
+  <thead>
+    <tr>
+      <th colspan="2" class="text-center">BCA Schedule</th>
+    </tr>
+    <tr>
+      <th>Course</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of datasheet">
+      <td>{{ e.Course }}</td>
+      <td><a routerLink="data1"></a>{{ e.Date }}</td>
+    </tr>
+  </tbody>
+</table>
